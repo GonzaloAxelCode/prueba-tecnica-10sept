@@ -5,6 +5,7 @@ const GET_CONTINENTS = gql`
   query{
     continents {
       name
+      code
     }
   }
 `;
@@ -13,7 +14,7 @@ const GetContinentsService = async () => {
         const result = await clientGHQL.query({
             query: GET_CONTINENTS
         });
-        console.log(result.data)
+
         return {
             isSuccess: true,
             data: result.data,

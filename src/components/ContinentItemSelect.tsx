@@ -1,6 +1,6 @@
 import { Checkbox, cn } from "@nextui-org/react";
 
-export const ContinentItemSelect = ({ value, image }: any) => {
+export const ContinentItemSelect = ({ value, image, code }: any) => {
     return (
         <Checkbox
 
@@ -16,7 +16,7 @@ export const ContinentItemSelect = ({ value, image }: any) => {
                 label: "w-full",
 
             }}
-            value={value}
+            value={code}
         >
             <div className="w-full flex flex-col justify-between gap-2">
                 <img src={image} alt="" className="w-[60px] h-[60px] mx-auto" />

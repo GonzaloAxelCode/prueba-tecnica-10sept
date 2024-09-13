@@ -32,24 +32,17 @@ const ItemCountry = ({ country }: { country: CountryItem }) => {
         >
 
 
-            <Card className={`py-4 flex flex-col justify-between cursor-pointer ${isOpen ? "bg-blue-200" : "bg-white"}`}
-
-            >
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start ">
+            <Card className={`py-4 flex flex-1 flex-col  justify-between cursor-pointer ${isOpen ? "bg-blue-200" : "bg-white"}`}>
+                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start min-h-[85px]">
                     <div className="flex flex-row gap-3 z-50">
                         <img src={flagImage || "https://media.istockphoto.com/id/1396814518/es/vector/imagen-pr%C3%B3ximamente-sin-foto-sin-imagen-en-miniatura-disponible-ilustraci%C3%B3n-vectorial.jpg?s=612x612&w=0&k=20&c=aA0kj2K7ir8xAey-SaPc44r5f-MATKGN0X0ybu_A774="} alt={name} className="object-contain w-[40px]" />
                         <div>
-                            <h4 className="font-bold text-gray-600 text-large">{name}</h4>
-                            <h4 className="font-bold text-gray-300 text-sm">{continent}</h4>
+                            <h4 className="font-bold text-gray-600 text-md">{name}</h4>
+                            <h4 className="font-bold text-gray-400 text-sm">{continent}</h4>
                         </div>
-
-
                     </div>
-
-
-
                 </CardHeader>
-                <CardBody className="overflow-visible py-2">
+                <CardBody className="py-2">
                     <Image
 
                         alt="Card background"

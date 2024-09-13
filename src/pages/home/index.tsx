@@ -1,3 +1,4 @@
+import { Card, Skeleton } from "@nextui-org/react"
 import InputSelectSearch from "../../components/InputSelectSearch"
 import ItemCountry, { CountryItem } from "../../components/ItemCountry"
 import ModalInformationCountry from "../../components/ModalInformationCountry"
@@ -6,21 +7,38 @@ import { useData } from "../../hooks/useData"
 
 const HomePage = () => {
 
-    const { countriesState, continentsState } = useData()
-    console.log(continentsState.continents)
-    console.log(countriesState.countries)
+    const { countriesState } = useData()
 
     return (
-        <div className="relative mx-auto">
+        <div className="relative mx-auto w-full">
             <div className="mx-auto">
                 <InputSelectSearch />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-3 px-2">
-                {countriesState.countries.map((country: CountryItem, index: any) => {
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 px-2">
+                {!countriesState.loading && countriesState.countries.map((country: CountryItem, index: any) => {
                     return <ItemCountry
                         key={index}
                         country={country}
                     />
+                })}
+                {countriesState.loading && [1, 2, 3, 4, 5, 6, 7, 8].map((_: any, index: any) => {
+                    return <Card key={index} className="space-y-5 p-4 " radius="lg">
+                        <Skeleton className="rounded-lg">
+                            <div className="h-24 w-[270px] rounded-lg bg-default-300"></div>
+                        </Skeleton>
+                        <div className="space-y-3">
+                            <Skeleton className="w-3/5 rounded-lg">
+                                <div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
+                            </Skeleton>
+                            <Skeleton className="w-4/5 rounded-lg">
+                                <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
+                            </Skeleton>
+                            <Skeleton className="w-2/5 rounded-lg">
+                                <div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
+                            </Skeleton>
+                        </div>
+
+                    </Card>
                 })}
 
             </div>

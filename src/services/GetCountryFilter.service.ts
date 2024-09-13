@@ -35,7 +35,7 @@ const CoutriesFilterService = async (continents: string[]): Promise<Response> =>
             query: GET_COUNTRIES_BY_CONTINENT,
             variables: { continents },
         });
-        console.log(result.data)
+
         return {
             isSuccess: true,
             data: result.data,

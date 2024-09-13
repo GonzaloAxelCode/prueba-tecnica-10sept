@@ -54,7 +54,7 @@ const ModalInformationCountry = () => {
                     <p>
                         <span className="font-bold text-md">Language: </span>
                         {countrySelected?.language?.map((el: any, index: any) => {
-                            return <span key={index}>{el.name || "Sin datos"}</span>
+                            return <span key={index}>, {el.name || "Sin datos"}</span>
                         })}
 
                     </p>
@@ -71,9 +71,9 @@ const ModalInformationCountry = () => {
 
                     </p>
 
-                    <div>
+                    <div className="overflow-y-auto max-h-[150px]">
                         {countrySelected?.region && countrySelected?.region?.map((re: Region, index: number) => {
-                            return <p key={index}>{re.name}</p>
+                            return <p key={index} className="max-w-[270px]">{re.name}</p>
                         })}
                         <span>{countrySelected?.region?.length || "Sin datos"}</span>
                     </div>

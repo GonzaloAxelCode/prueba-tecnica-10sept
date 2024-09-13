@@ -1,4 +1,4 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { continentsAdapter } from "../adapters/continents.adapter";
 import { countriesAdapter } from "../adapters/country.adapter";
 import { Response } from "../models/Response";
@@ -14,11 +14,17 @@ interface DataContextTypes {
     setCountrySelected: Function
     countriesState: any
     continentsState: any
-    GetCountriesFilter: Function
+    GetCountriesFilter: Function,
+    groupContinentsSelected: any
+    setGroupContinentsSelected: Function
+    searchTerms: string, setSearchTerms: Function
 }
 
-
 export const DataProvider = ({ children }: any) => {
+
+    const [groupContinentsSelected, setGroupContinentsSelected] = useState<any>([]);
+    const [searchTerms, setSearchTerms] = useState<string>("");
+
     const [countrySelected, setCountrySelected] = useState<any>({})
     const [continentsState, setContinentsState] = useState<any>({
         continents: [],
@@ -29,32 +35,22 @@ export const DataProvider = ({ children }: any) => {
         countries: [],
         loading: false,
         error: null,
-        hasMore: true,
-        currentIndex: 0,
-        chunkSize: 20
+
+
     })
-
-
-
-    const GetCountriesFilter = async (continents: string[]) => {
-        if (countriesState.loading || !countriesState.hasMore) return;
-
+    const GetCountriesFilter = async (continents: string[], terms: any) => {
         setCountriesState((prevState: any) => ({
             ...prevState,
-            loading: false
+            loading: true
         }));
         const response: Response = await CoutriesFilterService(continents)
         if (response.isSuccess) {
-            const newCountries = response.data.countries.slice(
-                countriesState.currentIndex,
-                countriesState.currentIndex + countriesState.chunkSize
-            );
+            const filterCountries = countriesAdapter(response.data.countries).filter((country: any) => country.name.includes(terms))
             setCountriesState((prevState: any) => ({
                 ...prevState,
                 loading: false,
-                countries: countriesAdapter(newCountries),
-                currentIndex: prevState.currentIndex + prevState.chunkSize,
-                hasMore: newCountries.length === prevState.chunkSize
+                countries: terms === "" ? countriesAdapter(response.data.countries) : filterCountries,
+
             }));
 
         } else {
@@ -65,23 +61,6 @@ export const DataProvider = ({ children }: any) => {
         }
 
     }
-
-    const handleScroll = useCallback(() => {
-
-        if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 100 && !countriesState.loading) {
-            GetCountriesFilter(["AF", "AS", "EU"])
-        }
-
-
-    }, []);
-
-    useEffect(() => {
-        GetCountriesFilter(["AF", "AS", "EU"])
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [handleScroll]);
-
     const GetContinents = async () => {
         setContinentsState((prevState: any) => ({
             ...prevState,
@@ -103,18 +82,24 @@ export const DataProvider = ({ children }: any) => {
         }
 
     }
-
     useEffect(() => {
         GetContinents()
-
     }, [])
+    useEffect(() => {
+        GetCountriesFilter(groupContinentsSelected.length !== 0 ? groupContinentsSelected : ['SA', 'EU', 'NA', 'AF', 'AN', 'AS', 'OC'], searchTerms)
+    }, [groupContinentsSelected, searchTerms])
+
+
 
     const values: DataContextTypes = {
         countrySelected,
         setCountrySelected,
         countriesState,
         continentsState,
-        GetCountriesFilter
+        GetCountriesFilter,
+        groupContinentsSelected,
+        setGroupContinentsSelected,
+        searchTerms, setSearchTerms
     }
     return <DataContext.Provider value={values}>
         {children}

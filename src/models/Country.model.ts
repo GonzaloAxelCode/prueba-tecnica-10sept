@@ -1,7 +1,7 @@
 
 import Continent from "./Continent.model"
 import Language from "./Language.model"
-import Subdivision from "./Subdivision.model"
+
 
 export default interface Country {
     awsRegion: string
@@ -17,5 +17,5 @@ export default interface Country {
     phone: string
     phones: string
     states: any[]
-    subdivisions: Subdivision
+
 }
