@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { lazy, Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Navigation from './components/Navigation';
+import Sidebar from './components/Sidebar';
+
+const HomePage = lazy(() => import('./pages/home'));
+const View1Page = lazy(() => import('./pages/view1'));
+const View2Page = lazy(() => import('./pages/view2'));
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <BrowserRouter>
+    <Suspense fallback={<div>Loading full...</div>}>
+      <main className='flex flex-row min-h-screen'>
+        <div>
+          <Navigation />
+          <Sidebar />
+        </div>
+
+        <Routes>
+          <Route path="" element={<HomePage />} />
+          <Route path="view1" element={<View1Page />} />
+          <Route path="view2" element={<View2Page />} />
+        </Routes>
+      </main>
+
+    </Suspense>
+  </BrowserRouter>
 }
 
 export default App;

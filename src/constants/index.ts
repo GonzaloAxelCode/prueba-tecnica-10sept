@@ -1,0 +1,1 @@
+export const URL_BASE_GRAPHQL = 'https://countries.trevorblades.com/'
