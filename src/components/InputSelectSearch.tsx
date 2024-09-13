@@ -1,4 +1,4 @@
-import { Input } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { useState } from 'react';
 import GroupContinentSelect from './GroupContinentSelect';
 
@@ -35,26 +35,36 @@ const InputSelectSearch = () => {
     }
 
     return (
-        <div className="relative z-50">
-            <div className="w-[300px] mx-auto">
-                <Input
+        <div className="relative z-30">
+            <div className="max-w-2xl  rounded-full my-20 py-2 px-3  mx-4 sm:mx-auto flex flex-row gap-2 border-gray-200 border-1 items-center justify-between">
+
+                <input
                     type="text"
-                    placeholder='Seleciona el continente'
+                    placeholder='Escriba el pais que desea ver'
                     value={search}
                     onChange={onChange}
                     onFocus={() => setOpen(true)}
                     onBlur={() => setOpen(false)}
-
+                    className="outline-none px-3 w-full"
                 />
+
+                <Button radius="full" className="px-6" color="primary" onClick={() => setOpen(false)}>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                            stroke="currentColor" className="w-3 h-3">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                    </span>
+
+                    <span>Buscar</span>
+                </Button>
             </div>
             {open && (
                 <div
-                    className={`absolute left-0 mt-2 w-[600px] p-4 bg-white border border-gray-300 rounded-xl shadow-lg transition-all ease-out duration-300 transform ${open ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                    className={`w-[95%]  sm:w-[75%] absolute  left-1/2 -translate-x-1/2 top-14 mt-2  p-4 bg-white border border-gray-300 rounded-xl shadow-lg transition-all ease-out duration-300 transform ${open ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
                         }`}
                     onFocus={() => setOpen(true)}
-
-
-
                 >
                     <GroupContinentSelect continentes={CONTINENTES} />
                 </div>

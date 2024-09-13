@@ -1,25 +1,28 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 
-const UIContext = createContext<UIContextTypes>({
-    openModalCountryInformation: false,
-    setOpenModalCountryInformation: () => false
+export const UIContext = createContext<UIContextTypes>({
+    modalStateCountry: null,
+    setModalStateCountry: () => null
 })
 
 
 interface UIContextTypes {
-    openModalCountryInformation: boolean
-    setOpenModalCountryInformation: Function
+    modalStateCountry: any
+    setModalStateCountry: Function
 }
 
 
 export const UIProvider = ({ children }: any) => {
 
-    const [openModalCountryInformation, setOpenModalCountryInformation] = useState(false)
+    const [modalStateCountry, setModalStateCountry] = useState<any>({
+        name: "",
+        open: false
+    })
 
 
     const values: UIContextTypes = {
-        openModalCountryInformation,
-        setOpenModalCountryInformation
+        modalStateCountry, setModalStateCountry
+
     }
     return <UIContext.Provider value={values}>
         {children}
@@ -27,4 +30,4 @@ export const UIProvider = ({ children }: any) => {
 }
 
 
-export const useUI = () => useContext<UIContextTypes>(UIContext)
+

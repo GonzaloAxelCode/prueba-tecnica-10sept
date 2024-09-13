@@ -8,42 +8,35 @@ const GroupContinentSelect = ({ continentes }: any) => {
         console.log(e)
     }
     return (
-        <div className="flex flex-col gap-1 w-full">
-            <CheckboxGroup
 
-                value={groupSelected}
-                onChange={onChange}
-                classNames={{
+        <CheckboxGroup
+
+            value={groupSelected}
+            onChange={onChange}
 
 
-                }}
+        >
+            <div className="flex px-4 flex-row justify-between">
+                <p className="font-bold text-gray-700">Filtrar por continentes</p>
+                <p onClick={() => setGroupSelected([])} className="text-blue-400 cursor-pointer">Limpiar</p>
+            </div>
+            <div className=" grid  xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4 p-4">
 
-            >
-                <div className="flex flex-row gap-2 flex-wrap  items-center">
 
-                    {continentes.slice(0, 3).map((continente: any, index: any) => {
-                        return <div key={index}>
-                            <ContinentItemSelect
+                {continentes.map((continente: any, index: any) => {
+                    return <div key={index} >
+                        <ContinentItemSelect
 
-                                value={continente.name}
-                                image={continente.urlimage}
-                            />
-                        </div>
-                    })}
-                    {continentes.slice(3).map((continente: any, index: any) => {
-                        return <div key={index}>
-                            <ContinentItemSelect
+                            value={continente.name}
+                            image={continente.urlimage}
+                        />
+                    </div>
+                })}
 
-                                value={continente.name}
-                                image={continente.urlimage}
-                            />
-                        </div>
-                    })}
+            </div>
+        </CheckboxGroup>
 
-                </div>
-            </CheckboxGroup>
 
-        </div>
     )
 }
 

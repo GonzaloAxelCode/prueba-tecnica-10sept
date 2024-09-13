@@ -1,4 +1,4 @@
-import { State } from "swr"
+
 import Continent from "./Continent.model"
 import Language from "./Language.model"
 import Subdivision from "./Subdivision.model"
@@ -16,6 +16,6 @@ export default interface Country {
     native: string
     phone: string
     phones: string
-    states: State
+    states: any[]
     subdivisions: Subdivision
 }

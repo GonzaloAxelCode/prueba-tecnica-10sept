@@ -1,50 +1,33 @@
 import InputSelectSearch from "../../components/InputSelectSearch"
 import ItemCountry, { CountryItem } from "../../components/ItemCountry"
 import ModalInformationCountry from "../../components/ModalInformationCountry"
-import { useUI } from "../../contexts/UIContext"
+import { useData } from "../../hooks/useData"
 
-
-
-const countriesFilter: CountryItem[] = [
-    {
-        name: "Peru",
-        flagImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS8HmQlMalHG14YpWHYkN3Uj9Wq2DCsBB3mw&s",
-        background: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaKOiU1VOFukYAgpdGGZLdJfIrInj6G8bEXg&s",
-        continent: "America",
-        capital: "Lima",
-        language: "Español",
-        currency: "Soles",
-        region: [
-            {
-                name: "Moquegua",
-                code: "MO"
-            }
-        ],
-        population: "34M people"
-    }
-]
 
 const HomePage = () => {
-    const { openModalCountryInformation } = useUI()
+
+    const { countriesState, continentsState } = useData()
+    console.log(continentsState.continents)
+    console.log(countriesState.countries)
+
     return (
-        <div className="">
-
-            <InputSelectSearch />
-            <h2>Lista de continentes</h2>
-            <div>
-                {countriesFilter.map((country: CountryItem, index: any) => {
+        <div className="relative mx-auto">
+            <div className="mx-auto">
+                <InputSelectSearch />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-3 px-2">
+                {countriesState.countries.map((country: CountryItem, index: any) => {
                     return <ItemCountry
-
                         key={index}
                         country={country}
                     />
                 })}
 
             </div>
-            <div className="absolute bottom-0 right-0">
-                <ModalInformationCountry open={openModalCountryInformation} />
-            </div>
 
+            <div className="fixed bottom-4  right-4 z-30">
+                <ModalInformationCountry />
+            </div>
         </div>
 
     )

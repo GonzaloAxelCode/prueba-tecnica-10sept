@@ -10,9 +10,10 @@ const View2Page = lazy(() => import('./pages/view2'));
 function App() {
   return <BrowserRouter>
     <Suspense fallback={<div>Loading full...</div>}>
-      <main className='flex flex-row min-h-screen'>
+      <main className='flex flex-row min-h-screen min-w-screen relative'>
+
+        <Navigation />
         <div>
-          <Navigation />
           <Sidebar />
         </div>
 
