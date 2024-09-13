@@ -10,10 +10,6 @@ const InputSelectSearch = () => {
     const [open, setOpen] = useState(false);
     const { continentsState } = useData()
     const { searchTerms, setSearchTerms } = useData()
-    const onChange = (e: any) => {
-        setSearchTerms(e.target.value)
-    }
-
     return (
         <div className="relative z-30 w-full">
             <div className="max-w-2xl  rounded-full my-20 py-2 px-3  mx-4 sm:mx-auto flex flex-row gap-2 border-gray-200 border-1 items-center justify-between">
@@ -22,7 +18,7 @@ const InputSelectSearch = () => {
                     type="text"
                     placeholder='Escriba el pais que desea ver'
                     value={searchTerms}
-                    onChange={onChange}
+                    onChange={(e) => setSearchTerms(e.target.value)}
                     onFocus={() => setOpen(true)}
 
                     onBlur={() => setOpen(false)}

@@ -1,8 +1,9 @@
 import { Card, Skeleton } from "@nextui-org/react"
 import InputSelectSearch from "../../components/InputSelectSearch"
-import ItemCountry, { CountryItem } from "../../components/ItemCountry"
+import ItemCountry from "../../components/ItemCountry"
 import ModalInformationCountry from "../../components/ModalInformationCountry"
 import { useData } from "../../hooks/useData"
+import { CountryItem } from "../../models/models"
 
 
 const HomePage = () => {

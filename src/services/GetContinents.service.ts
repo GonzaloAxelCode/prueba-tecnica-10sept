@@ -10,24 +10,24 @@ const GET_CONTINENTS = gql`
   }
 `;
 const GetContinentsService = async () => {
-    try {
-        const result = await clientGHQL.query({
-            query: GET_CONTINENTS
-        });
+  try {
+    const result = await clientGHQL.query({
+      query: GET_CONTINENTS
+    });
 
-        return {
-            isSuccess: true,
-            data: result.data,
-            error: null
-        }
-    } catch (err: any) {
-        console.log(err)
-        return {
-            isSuccess: false,
-            data: null,
-            error: err
-        }
+    return {
+      isSuccess: true,
+      data: result.data,
+      error: null
     }
+  } catch (err: any) {
+    console.log(err)
+    return {
+      isSuccess: false,
+      data: null,
+      error: err
+    }
+  }
 }
 
 export default GetContinentsService

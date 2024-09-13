@@ -1,11 +1,7 @@
 import { Card, CardBody, CardHeader, Image } from "@nextui-org/react"
 import { useData } from "../hooks/useData"
 import { useUI } from "../hooks/useUI"
-
-export interface Region {
-    name: string
-    code: any
-}
+import { Region } from "../models/models"
 
 
 
@@ -17,7 +13,7 @@ const ModalInformationCountry = () => {
     }
     return (
 
-        <Card className="">
+        <Card >
             <CardBody>
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-end ">
                     <div className="cursor-pointer " onClick={() => setModalStateCountry({

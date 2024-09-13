@@ -9,7 +9,14 @@ const View2Page = lazy(() => import('./pages/view2'));
 
 function App() {
   return <BrowserRouter>
-    <Suspense fallback={<div>Loading full...</div>}>
+    <Suspense fallback={<div className='w-screen h-screen justify-center items-center'>
+      <div className="m-auto">
+
+        <div className="flex items-center justify-center h-screen">
+          <div className="w-16 h-16 border-4 border-t-4 border-green-400 border-solid rounded-full animate-spin"></div>
+        </div>
+      </div>
+    </div>}>
       <main className='flex flex-row min-h-screen min-w-screen relative'>
 
         <Navigation />

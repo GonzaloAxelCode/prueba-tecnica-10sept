@@ -2,7 +2,8 @@
 
 import { gql } from "@apollo/client";
 import { clientGHQL } from "../config/graphql";
-import { Response } from "../models/Response";
+import { Response } from "../models/models";
+
 
 const GET_COUNTRIES_BY_CONTINENT = gql`
   query GetCountriesByContinent($continents: [String!]) {

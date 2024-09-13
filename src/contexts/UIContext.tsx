@@ -22,7 +22,6 @@ export const UIProvider = ({ children }: any) => {
 
     const values: UIContextTypes = {
         modalStateCountry, setModalStateCountry
-
     }
     return <UIContext.Provider value={values}>
         {children}

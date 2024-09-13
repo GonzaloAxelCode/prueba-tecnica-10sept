@@ -2,6 +2,7 @@ import { Navbar, NavbarContent, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } f
 
 import { Link } from "@nextui-org/link";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 const menuItems = [
     {
         path: "/",
@@ -19,6 +20,8 @@ const menuItems = [
 
 
 const Navigation = () => {
+    const location = useLocation()
+    const path = location.pathname
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     return (
         <Navbar className="sm:hidden absolute" onMenuOpenChange={setIsMenuOpen}>
@@ -37,7 +40,7 @@ const Navigation = () => {
                     <NavbarMenuItem key={`${item}-${index}`}>
                         <Link
                             color={
-                                index === 2 ? "primary" : index === menuItems.length - 1 ? "danger" : "foreground"
+                                item.path === path ? "primary" : "foreground"
                             }
                             className="w-full"
                             href={item.path}

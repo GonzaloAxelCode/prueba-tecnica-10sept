@@ -1,12 +1,15 @@
 import { createContext, useEffect, useState } from "react";
 import { continentsAdapter } from "../adapters/continents.adapter";
 import { countriesAdapter } from "../adapters/country.adapter";
-import { Response } from "../models/Response";
+
+import { Response } from "../models/models";
 import GetContinentsService from "../services/GetContinents.service";
 import CoutriesFilterService from "../services/GetCountryFilter.service";
 
 
 export const DataContext = createContext<any>({})
+
+
 
 
 interface DataContextTypes {
@@ -45,7 +48,9 @@ export const DataProvider = ({ children }: any) => {
         }));
         const response: Response = await CoutriesFilterService(continents)
         if (response.isSuccess) {
-            const filterCountries = countriesAdapter(response.data.countries).filter((country: any) => country.name.includes(terms))
+            const resolveCountries = countriesAdapter(response.data.countries)
+            const filterCountries = resolveCountries.filter((country: any) => country.name.includes(terms))
+
             setCountriesState((prevState: any) => ({
                 ...prevState,
                 loading: false,
@@ -88,8 +93,6 @@ export const DataProvider = ({ children }: any) => {
     useEffect(() => {
         GetCountriesFilter(groupContinentsSelected.length !== 0 ? groupContinentsSelected : ['SA', 'EU', 'NA', 'AF', 'AN', 'AS', 'OC'], searchTerms)
     }, [groupContinentsSelected, searchTerms])
-
-
 
     const values: DataContextTypes = {
         countrySelected,
