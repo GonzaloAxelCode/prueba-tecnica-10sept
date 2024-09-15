@@ -1,55 +1,46 @@
-import { Card, Skeleton } from "@nextui-org/react"
-import InputSelectSearch from "../../components/InputSelectSearch"
-import ItemCountry from "../../components/ItemCountry"
-import ModalInformationCountry from "../../components/ModalInformationCountry"
-import { useData } from "../../hooks/useData"
-import { CountryItem } from "../../models/models"
-
+import InfiniteScroll from "react-infinite-scroll-component";
+import InputSelectSearch from "../../components/InputSelectSearch";
+import ItemCountry from "../../components/ItemCountry";
+import ModalInformationCountry from "../../components/ModalInformationCountry";
+import SkeletonCountries from "../../components/SkeletonCountries";
+import { useData } from "../../hooks/useData";
+import useLazyCountriesImages from "../../hooks/useLazyCountriesImages";
+import { CountryItem } from "../../models/models";
 
 const HomePage = () => {
-
-    const { countriesState } = useData()
-
+    const { countriesState } = useData();
+    const countries = countriesState.countries;
+    const loading = countriesState.loading;
+    const { visibleCountries, loadMoreData, hasMore } = useLazyCountriesImages(countries)
     return (
         <div className="relative mx-auto w-full">
             <div className="mx-auto">
                 <InputSelectSearch />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 px-2">
-                {!countriesState.loading && countriesState.countries.map((country: CountryItem, index: any) => {
-                    return <ItemCountry
-                        key={index}
-                        country={country}
-                    />
-                })}
-                {countriesState.loading && [1, 2, 3, 4, 5, 6, 7, 8].map((_: any, index: any) => {
-                    return <Card key={index} className="space-y-5 p-4 " radius="lg">
-                        <Skeleton className="rounded-lg">
-                            <div className="h-24 w-[270px] rounded-lg bg-default-300"></div>
-                        </Skeleton>
-                        <div className="space-y-3">
-                            <Skeleton className="w-3/5 rounded-lg">
-                                <div className="h-3 w-3/5 rounded-lg bg-default-200"></div>
-                            </Skeleton>
-                            <Skeleton className="w-4/5 rounded-lg">
-                                <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
-                            </Skeleton>
-                            <Skeleton className="w-2/5 rounded-lg">
-                                <div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
-                            </Skeleton>
-                        </div>
+            <div className="flex w-full h-full">
 
-                    </Card>
-                })}
 
+                <InfiniteScroll
+                    dataLength={visibleCountries.length}
+                    next={loadMoreData}
+                    hasMore={hasMore}
+                    loader={<SkeletonCountries />}
+
+                    className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 px-2"
+                >
+                    {!loading &&
+                        visibleCountries.map((country: CountryItem, index: any) => {
+                            return <ItemCountry key={index} country={country} />;
+                        })}
+
+                    {loading && <SkeletonCountries />}
+                </InfiniteScroll>
             </div>
-
-            <div className="fixed bottom-4  right-4 z-30">
+            <div className="fixed bottom-4 right-4 z-30">
                 <ModalInformationCountry />
             </div>
         </div>
+    );
+};
 
-    )
-}
-
-export default HomePage
+export default HomePage;

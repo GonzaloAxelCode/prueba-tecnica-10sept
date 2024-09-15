@@ -11,7 +11,7 @@ const GetImagesPexel = async (name: any) => {
             }
         });
         if (response.data.photos.length > 0) {
-            return response.data.photos[0].src.original;
+            return response.data.photos[0].src.landscape;
         }
     } catch (error) {
         console.error(error);
