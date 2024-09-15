@@ -16,6 +16,7 @@ const menuItems = [
         path: "/view2",
         name: "View2"
     }
+
 ];
 
 
